@@ -3,39 +3,39 @@ clc
 clear
 close all
 data_number_a=xlsread('or_data.xlsx','sheet1');
-%data_number_a=xlsread('chaguan_anya.xlsx','²å¹Ü');
+%data_number_a=xlsread('excel_name.xlsx','sheet1');
 [total_num,cd_num]=size(data_number_a);
 X=data_number_a(:,1:cd_num-1);
 Y=data_number_a(:,cd_num);
-%rng(1);%¿É¸´ÏÖ
-indices = crossvalind('Kfold', total_num, 5);%ÓÃkÕÛ·ÖÀà·¨½«Ñù±¾Ëæ»ú·ÖÎª5²¿·Ö
-i=1; %ËÄ·İÓÃÀ´ÑµÁ·£¬Ò»·İ½øĞĞ²âÊÔ
+%rng(1);%å¯å¤ç°
+indices = crossvalind('Kfold', total_num, 5);%ç”¨kæŠ˜åˆ†ç±»æ³•å°†æ ·æœ¬éšæœºåˆ†ä¸º5éƒ¨åˆ†
+i=1; %å››ä»½ç”¨æ¥è®­ç»ƒï¼Œä¸€ä»½è¿›è¡Œæµ‹è¯•
 test = (indices == i);
 train = ~test;
 X_train=X(train, :);
 Y_train=Y(train, :);
 X_test=X(test, :);
 Y_test=Y(test, :);
-%¹¹½¨CARTËã·¨·ÖÀàÊ÷
+%æ„å»ºCARTç®—æ³•åˆ†ç±»æ ‘
 tree=fitctree(X_train,Y_train);
-view(tree,'Mode','graph');%Éú³ÉÊ÷Í¼
+view(tree,'Mode','graph');%ç”Ÿæˆæ ‘å›¾
 rules_num=(tree.IsBranchNode==0);
-rules_num=sum(rules_num);%ÇóÈ¡¹æÔòÊıÁ¿
-Cart_result=predict(tree,X_test);%Ê¹ÓÃ²âÊÔÑù±¾½øĞĞÑéÖ¤
+rules_num=sum(rules_num);%æ±‚å–è§„åˆ™æ•°é‡
+Cart_result=predict(tree,X_test);%ä½¿ç”¨æµ‹è¯•æ ·æœ¬è¿›è¡ŒéªŒè¯
 %Cart_result=cell2mat(Cart_result);
 %Y_test=cell2mat(Y_test);
 Cart_result1=(Cart_result==Y_test);
-Cart_length=size(Cart_result1,1);%Í³¼Æ×¼È·ÂÊ
+Cart_length=size(Cart_result1,1);%ç»Ÿè®¡å‡†ç¡®ç‡
 Cart_rate=(sum(Cart_result1))/Cart_length;
-%==================»ìÏı¾ØÕó=================
+%==================æ··æ·†çŸ©é˜µ=================
 expected=Y_test;
 labels=Cart_result;
-%=========·ÖÀà==========
+%=========åˆ†ç±»==========
 [m,~]=size(labels);
 leibie=unique(expected);
-k=size(leibie,1);%·ÖÀàÊı
+k=size(leibie,1);%åˆ†ç±»æ•°
 
-%==============¼ÆËã»ìÏı¾ØÕó ==================
+%==============è®¡ç®—æ··æ·†çŸ©é˜µ ==================
 for s=1:k
     TP(s)=0;
     FP(s)=0;
@@ -60,6 +60,6 @@ end
 
 er=1-mean(fscore);
 
-disp(['¹æÔòÊı£º' num2str(rules_num)]);
-disp(['²âÊÔÑù±¾Ê¶±ğ×¼È·ÂÊ£º' num2str(Cart_rate)]);
+disp(['è§„åˆ™æ•°ï¼š' num2str(rules_num)]);
+disp(['æµ‹è¯•æ ·æœ¬è¯†åˆ«å‡†ç¡®ç‡ï¼š' num2str(Cart_rate)]);
 
