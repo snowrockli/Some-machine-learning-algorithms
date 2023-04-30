@@ -1,4 +1,4 @@
-%=========================KNN===========
+%=========================KNN============
 clc
 clear
 close all
@@ -7,9 +7,9 @@ data_number_a=xlsread('or_data.xlsx','sheet1');
 
 X=data_number_a(:,1:cd_num-1);
 Y=data_number_a(:,cd_num);
-%rng(1);%¿É¸´ÏÖ
-indices = crossvalind('Kfold', total_num, 5);%ÓÃkÕÛ·ÖÀà·¨½«Ñù±¾Ëæ»ú·ÖÎª5²¿·Ö
-i=1; %ËÄ·İÓÃÀ´ÑµÁ·£¬Ò»·İ½øĞĞ²âÊÔ
+%rng(1);%å¯å¤ç°
+indices = crossvalind('Kfold', total_num, 5);%ç”¨kæŠ˜åˆ†ç±»æ³•å°†æ ·æœ¬éšæœºåˆ†ä¸º5éƒ¨åˆ†
+i=1; %å››ä»½ç”¨æ¥è®­ç»ƒï¼Œä¸€ä»½è¿›è¡Œæµ‹è¯•
 test = (indices == i);
 train = ~test;
 X_train=X(train, :);
