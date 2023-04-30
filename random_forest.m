@@ -2,17 +2,16 @@
 clc
 clear
 close all
-data_number_a=xlsread('new_or_data.xlsx','FB¹Ø¼üÖ¸±ê');
-%data_number_a=xlsread('chaguan_anya.xlsx','²å¹Ü');
+data_number_a=xlsread('new_or_data.xlsx','å…³é”®æŒ‡æ ‡');
 [total_num,cd_num]=size(data_number_a);
 X=data_number_a(:,31:65);
 %X=data_number_a(:,1:cd_num-1);
 Y=data_number_a(:,66);
-%rng(1);%¿É¸´ÏÖ
+%rng(1);%å¯å¤ç°
 for tt=1:1000
-    indices = crossvalind('Kfold', total_num, 5);%ÓÃkÕÛ·ÖÀà·¨½«Ñù±¾Ëæ»ú·ÖÎª5²¿·Ö
+    indices = crossvalind('Kfold', total_num, 5);%ç”¨kæŠ˜åˆ†ç±»æ³•å°†æ ·æœ¬éšæœºåˆ†ä¸º5éƒ¨åˆ†
     
-    i=1; %ËÄ·İÓÃÀ´ÑµÁ·£¬Ò»·İ½øĞĞ²âÊÔ
+    i=1; %å››ä»½ç”¨æ¥è®­ç»ƒï¼Œä¸€ä»½è¿›è¡Œæµ‹è¯•
     test = (indices == i);
     train = ~test;
     X_train=X(train, :);
@@ -26,15 +25,15 @@ for tt=1:1000
     predict_label=str2num(cell2mat(predict_label));
     accuracy(tt)  =  length(find(predict_label == Y_test))/length(Y_test);
     
-    %==================»ìÏı¾ØÕó=================
+    %==================æ··æ·†çŸ©é˜µ=================
     expected=Y_test;
     labels=predict_label;
-    %=========·ÖÀà==========
+    %=========åˆ†ç±»==========
     [m,~]=size(labels);
     leibie=unique(expected);
-    k=size(leibie,1);%·ÖÀàÊı
+    k=size(leibie,1);%åˆ†ç±»æ•°
     
-    %==============¼ÆËã»ìÏı¾ØÕó ==================
+    %==============è®¡ç®—æ··æ·†çŸ©é˜µ ==================
     for s=1:k
         TP(s)=0;
         FP(s)=0;
